@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./css/style.css"">
+		<link rel="stylesheet" href="./css/style.css" />
 		<title>Basic Registration Form</title>
 	</head>
 	<body>
@@ -14,7 +14,7 @@
 				Fields marked with a red star are mandatory.
 			</p>
 			<hr />
-			<form id="rform" method="POST">
+			<form id="rform" onsubmit="logSubmit(event)">
 				<h3>Customer Details</h3>
 				<div class="form-input">
 					<div class="row">
@@ -22,7 +22,7 @@
 					</div>
 					<div class="row">
 						<input
-							type="text"
+							type="email"
 							name="email"
 							id="email"
 							placeholder="Input Email"
@@ -184,7 +184,7 @@
 						/>
 					</div>
 				</div>
-				<input type="submit" value="Submit" />
+				<button type="submit" class="submit-btn">Submit</button>
 			</form>
 			<p>
 				All customer information will be kept with descretion and will

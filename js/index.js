@@ -85,3 +85,59 @@ const showBarangay = async (e) => {
 		barangaySelect.options.add(new Option(v, v));
 	});
 };
+
+const logSubmit = (e) => {
+	// prevent form on submitting
+	e.preventDefault();
+	// inputs
+	const email = document.getElementById('email').value;
+	const fname = document.getElementById('fname').value;
+	const lname = document.getElementById('lname').value;
+	const laddress1 = document.getElementById('laddress1').value;
+	const laddress2 = document.getElementById('laddress2').value;
+	const zcode = document.getElementById('zcode').value;
+	// selects
+	const region = document.getElementById('region').value;
+	const province = document.getElementById('province').value;
+	const city = document.getElementById('city').value;
+	const barangay = document.getElementById('barangay').value;
+
+	if (!email.includes('.com')) {
+		alert(
+			'Invalid email format. Please enter a valid email address. Example: testemail@example.com'
+		);
+		// to stop the process from running
+		return;
+	}
+
+	const fullName = concatArrayString([fname, lname]);
+
+	const customerDetails = [email, fullName];
+
+	const addressDetails = [
+		laddress1,
+		laddress2,
+		zcode,
+		region,
+		province,
+		city,
+		barangay,
+	];
+
+	const fullAddress = concatArrayString(addressDetails);
+
+	const completeDetails = formDetails(
+		customerDetails,
+		addressDetails,
+		fullAddress
+	);
+	console.table(completeDetails);
+};
+
+const concatArrayString = (data) => {
+	return data.join(' ');
+};
+
+const formDetails = (customerDetails, addressDetails, fullAddress) => {
+	return [...customerDetails, ...addressDetails, fullAddress];
+};

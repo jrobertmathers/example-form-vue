@@ -42,19 +42,19 @@ select {
 }
 
 /* Full-width input fields */
-input[type='text'] {
+input {
 	width: 100%;
 	padding: 10px 0px 10px 0px;
 	display: inline-block;
 	border: none;
 }
 
-input[type='text']:focus {
+input:focus {
 	background-color: #ddd;
 	outline: none;
 }
 
-input[type='submit'] {
+.submit-btn {
 	background-color: #04aa6d;
 	border: none;
 	color: white;
