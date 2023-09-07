@@ -1,0 +1,9 @@
+{
+	"liveServer.settings.port": 5502,
+	"[javascript]": {
+		"editor.tabSize": 2
+	},
+	"[html]": {
+		"editor.tabSize": 4
+	}
+}

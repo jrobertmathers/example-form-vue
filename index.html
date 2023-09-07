@@ -3,195 +3,232 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./css/style.css" />
+		<link rel="stylesheet" href="style.css" />
 		<title>Basic Registration Form</title>
 	</head>
 	<body>
-		<div class="container">
-			<h1>Customer Registration Form</h1>
-			<p>
-				Please fill out the customer information form below to join.
-				Fields marked with a red star are mandatory.
-			</p>
-			<hr />
-			<form id="rform" onsubmit="logSubmit(event)">
-				<h3>Customer Details</h3>
-				<div class="form-input">
-					<div class="row">
-						<label class="required" for="email">Email: </label>
-					</div>
-					<div class="row">
-						<input
-							type="email"
-							name="email"
-							id="email"
-							placeholder="Input Email"
-							required
-						/>
-					</div>
-				</div>
-				<div class="form-input">
-					<div class="row">
-						<label class="required" for="fname">First Name: </label>
-					</div>
-					<div class="row">
-						<input
-							type="text"
-							name="fname"
-							id="fname"
-							placeholder="Input First Name"
-							required
-						/>
-					</div>
-				</div>
-				<div class="form-input">
-					<div class="row">
-						<label class="required" for="lname">Last Name: </label>
-					</div>
-					<div class="row">
-						<input
-							type="text"
-							name="lname"
-							id="lname"
-							placeholder="Input Last Name"
-							required
-						/>
-					</div>
-				</div>
-				<h3>Address Details</h3>
-				<div class="form-input">
-					<div class="row">
-						<label class="required" for="laddress1">
-							Line Address 1:
-						</label>
-					</div>
-					<div class="row">
-						<input
-							type="text"
-							name="laddress1"
-							id="laddress1"
-							placeholder="Input Line Address 1"
-							required
-						/>
-					</div>
-				</div>
-				<div class="form-input">
-					<div class="row">
-						<label for="laddress2">Line Address 2: </label>
-					</div>
-					<div class="row">
-						<input
-							type="text"
-							name="laddress2"
-							id="laddress2"
-							placeholder="Input Line Address 2"
-						/>
-					</div>
-				</div>
-				<div class="form-input">
-					<div class="row">
-						<div class="col-25">
-							<div class="row">
-								<label class="required" for="region">
-									Region:
-								</label>
-							</div>
-							<div class="row">
-								<select
-									name="region"
-									id="region"
-									onchange="showProvince(event)"
-									required
-								>
-									<option value="" selected>
-										Select Region
-									</option>
-								</select>
-							</div>
+		<main id="app">
+			<div class="container">
+				<h1>Customer Registration Form</h1>
+				<p>
+					Please fill out the customer information form below to join.
+					Fields marked with a red star are mandatory.
+				</p>
+				<hr />
+				<form>
+					<h3>Customer Details</h3>
+					<div class="form-input">
+						<div class="row">
+							<label class="required" for="email">Email: </label>
 						</div>
-						<div class="col-25">
-							<div class="row">
-								<label class="required" for="province">
-									Province:
-								</label>
-							</div>
-							<div class="row">
-								<select
-									name="province"
-									id="province"
-									onchange="showMunicipality(event)"
-									disabled
-									required
-								>
-									<option value="" selected>
-										Select Province
-									</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-25">
-							<div class="row">
-								<label class="required" for="city">
-									Municipality:
-								</label>
-							</div>
-							<div class="row">
-								<select
-									name="city"
-									id="city"
-									onchange="showBarangay(event)"
-									disabled
-									required
-								>
-									<option value="" selected>
-										Select Municipality
-									</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-25">
-							<div class="row">
-								<label class="required" for="barangay">
-									Barangay:
-								</label>
-							</div>
-							<div class="row">
-								<select
-									name="barangay"
-									id="barangay"
-									disabled
-									required
-								>
-									<option value="" selected>
-										Select Barangay
-									</option>
-								</select>
-							</div>
+						<div class="row">
+							<span
+								v-if="message"
+								:class="[isValid ? 'success' : 'error']"
+								>{{ message }}</span
+							>
+							<input
+								type="email"
+								id="email"
+								placeholder="Input Email"
+								v-model.lazy="customerDetails.email"
+								@change="verifyEmail()"
+								required
+							/>
 						</div>
 					</div>
-				</div>
-				<div class="form-input">
-					<div class="row">
-						<label class="required" for="zcode"> Zip Code: </label>
+					<div class="form-input">
+						<div class="row">
+							<label class="required" for="fname"
+								>First Name:
+							</label>
+						</div>
+						<div class="row">
+							<input
+								type="text"
+								id="fname"
+								placeholder="Input First Name"
+								v-model="customerDetails.fname"
+								required
+							/>
+						</div>
 					</div>
-					<div class="row">
-						<input
-							type="text"
-							name="zcode"
-							id="zcode"
-							placeholder="Input Zip Code"
-							required
-						/>
+					<div class="form-input">
+						<div class="row">
+							<label class="required" for="lname"
+								>Last Name:
+							</label>
+						</div>
+						<div class="row">
+							<input
+								type="text"
+								id="lname"
+								placeholder="Input Last Name"
+								v-model="customerDetails.lname"
+								required
+							/>
+						</div>
 					</div>
-				</div>
-				<button type="submit" class="submit-btn">Submit</button>
-			</form>
-			<p>
-				All customer information will be kept with descretion and will
-				not be used for other marketing or advertisment purposes without
-				customer approval.
-			</p>
-		</div>
-		<script src="./js/index.js"></script>
+					<h3>Address Details</h3>
+					<div class="form-input">
+						<div class="row">
+							<label class="required" for="laddress1">
+								Line Address 1:
+							</label>
+						</div>
+						<div class="row">
+							<input
+								type="text"
+								id="laddress1"
+								placeholder="Input Line Address 1"
+								v-model="customerDetails.laddress1"
+								required
+							/>
+						</div>
+					</div>
+					<div class="form-input">
+						<div class="row">
+							<label for="laddress2">Line Address 2: </label>
+						</div>
+						<div class="row">
+							<input
+								type="text"
+								id="laddress2"
+								placeholder="Input Line Address 2"
+								v-model="customerDetails.laddress2"
+							/>
+						</div>
+					</div>
+					<div class="form-input">
+						<div class="row">
+							<div class="col-25">
+								<div class="row">
+									<label class="required" for="region">
+										Region:
+									</label>
+								</div>
+								<div class="row">
+									<select
+										name="region"
+										id="region"
+										v-model="customerDetails.region"
+										@change="showProvinces()"
+										required
+									>
+										<option
+											v-for="region in regions"
+											:value="region.regCode"
+										>
+											{{ region.regDesc }}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-25">
+								<div class="row">
+									<label class="required" for="province">
+										Province:
+									</label>
+								</div>
+								<div class="row">
+									<select
+										name="province"
+										id="province"
+										v-model="customerDetails.province"
+										:disabled="!provinces.length"
+										@change="showMunicipalities()"
+										required
+									>
+										<option
+											v-for="province in provinces"
+											:value="province.provCode"
+										>
+											{{ province.provDesc }}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-25">
+								<div class="row">
+									<label class="required" for="city">
+										Municipality:
+									</label>
+								</div>
+								<div class="row">
+									<select
+										name="city"
+										id="city"
+										v-model="customerDetails.city"
+										:disabled="!municipalities.length"
+										@change="showBarangays()"
+										required
+									>
+										<option
+											v-for="municipality in municipalities"
+											:value="municipality.citymunCode"
+										>
+											{{ municipality.citymunDesc }}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-25">
+								<div class="row">
+									<label class="required" for="barangay">
+										Barangay:
+									</label>
+								</div>
+								<div class="row">
+									<select
+										name="barangay"
+										id="barangay"
+										v-model="customerDetails.barangay"
+										:disabled="!barangays.length"
+										required
+									>
+										<option
+											v-for="barangay in barangays"
+											:value="barangay.brgyCode"
+										>
+											{{ barangay.brgyDesc }}
+										</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-input">
+						<div class="row">
+							<label class="required" for="zcode">
+								Zip Code:
+							</label>
+						</div>
+						<div class="row">
+							<input
+								type="text"
+								id="zcode"
+								placeholder="Input Zip Code"
+								v-model="customerDetails.zcode"
+								required
+							/>
+						</div>
+					</div>
+					<button
+						type="submit"
+						class="submit-btn"
+						@click.prevent="saveCustomer()"
+					>
+						Submit
+					</button>
+				</form>
+				<p>
+					All customer information will be kept with descretion and
+					will not be used for other marketing or advertisment
+					purposes without customer approval.
+				</p>
+			</div>
+		</main>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="script.js" type="module"></script>
 	</body>
 </html>
